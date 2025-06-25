@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ 'Edit' if mode == 'edit' else 'Tambah' }} Catatan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff0f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #8b0000;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #f2a2c0;
+            border-radius: 6px;
+            background-color: #fff5fa;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background-color: #f471a1;
+            color: white;
+        }
+
+        .btn-back {
+            background-color: #ccc;
+            margin-left: 10px;
+            color: black;
+            text-decoration: none;
+            padding: 9px 14px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>{{ 'Edit' if mode == 'edit' else 'Tambah' }} Catatan</h1>
+
+    <div class="form-container">
+        <form method="POST">
+            <label for="tanggal">Tanggal</label>
+            <input type="date" name="tanggal" required value="{{ data.tanggal if data else '' }}">
+
+            <label for="deskripsi">Deskripsi</label>
+            <input type="text" name="deskripsi" required value="{{ data.deskripsi if data else '' }}">
+
+            <label for="jenis">Jenis</label>
+            <select name="jenis" required>
+                <option value="">-- Pilih --</option>
+                <option value="Pemasukan" {% if data and data.jenis == 'Pemasukan' %}selected{% endif %}>Pemasukan</option>
+                <option value="Pengeluaran" {% if data and data.jenis == 'Pengeluaran' %}selected{% endif %}>Pengeluaran</option>
+            </select>
+
+            <label for="nominal">Nominal</label>
+            <input type="number" name="nominal" required min="0" value="{{ data.nominal if data else '' }}">
+
+            <button type="submit" class="btn btn-submit">Simpan</button>
+            <a href="/" class="btn-back">Kembali</a>
+        </form>
+    </div>
+
+</body>
+</html>
